@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -43,6 +44,7 @@ public class ProductController {
         return ResponseEntity.status(results.get(0).isSuccess() ? HttpStatus.OK : HttpStatus.NOT_FOUND).body(results);
     }
 
+//    @PreAuthorize(value = "hasAnyRole('SUPER_ADMIN','MODERATOR')")
     @PostMapping
     public HttpEntity<?> addProduct(@Valid @RequestBody ProductDTO productDTO) {
         Result result = productService.addProduct(productDTO);
@@ -50,6 +52,7 @@ public class ProductController {
                 HttpStatus.FORBIDDEN : result.getMessage().equals(messageProduct.getElementExists()) ? HttpStatus.CONFLICT : HttpStatus.NOT_FOUND).body(result);
     }
 
+//    @PreAuthorize(value = "hasAnyRole('SUPER_ADMIN','MODERATOR')")
     @PutMapping("/{id}")
     public HttpEntity<?> editProductById(@PathVariable Integer id, @Valid @RequestBody ProductDTO productDTO) {
         Result result = productService.editProductById(id, productDTO);
@@ -57,6 +60,7 @@ public class ProductController {
                 HttpStatus.FORBIDDEN : result.getMessage().equals(messageProduct.getElementExists()) ? HttpStatus.CONFLICT : HttpStatus.NOT_FOUND).body(result);
     }
 
+//    @PreAuthorize(value = "hasRole('SUPER_ADMIN')")
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteProductById(@PathVariable Integer id) {
         Result result = productService.deleteProductById(id);

@@ -49,7 +49,6 @@ public class AttachmentService {
             while (fileNames.hasNext()) {
                 MultipartFile file = request.getFile(fileNames.next());
                 Attachment attachment = new Attachment();
-                assert file != null;
                 attachment.setContentType(file.getContentType());
                 attachment.setName(file.getOriginalFilename());
                 attachment.setSize(file.getSize());

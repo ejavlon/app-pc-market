@@ -18,5 +18,6 @@ public abstract class MainClass {
     @Column(nullable = false,unique = true)
     private String name;
 
-    private boolean active = true;
+    @Column(columnDefinition = "default true")
+    private boolean active;
 }
