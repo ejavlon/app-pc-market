@@ -25,7 +25,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping
-    public HttpEntity<?> getAllCustomers(@RequestParam int page) {
+    public HttpEntity<?> getAllCustomers(@RequestParam(defaultValue = "0") int page) {
         Page<Customer> allCustomers = customerService.getAllCustomers(page);
         return ResponseEntity.ok(allCustomers);
     }
