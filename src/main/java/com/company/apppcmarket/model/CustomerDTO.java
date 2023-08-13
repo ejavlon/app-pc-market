@@ -21,5 +21,5 @@ public class CustomerDTO {
     private String phoneNumber;
 
     @NotNull(message = "Address id kiritilmadi")
-    private Integer address_id;
+    private Integer addressId;
 }

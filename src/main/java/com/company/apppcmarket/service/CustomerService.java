@@ -55,21 +55,12 @@ public class CustomerService {
             return new Result("Bunday telefon raqam boshqa mijozda bor", false);
         }
 
-        Optional<Address> optionalAddress = addressRepository.findById(customerDTO.getAddress_id());
+        Optional<Address> optionalAddress = addressRepository.findById(customerDTO.getAddressId());
         if (!optionalAddress.isPresent()) {
             return new Result(messageAddress.getElementNotFound(), false);
         }
+
         Address address = optionalAddress.get();
-        if (create && customerRepository.existsByAddress_Id(customerDTO.getAddress_id()) ||
-                edit && customerRepository.existsByIdIsNotAndAddress_Id(id, customerDTO.getAddress_id())) {
-            return new Result("Bu manzilda boshqa mijoz yashaydi", false);
-        }
-
-        if (create && supplierRepository.existsByAddress_Id(customerDTO.getAddress_id()) ||
-                edit && supplierRepository.existsByIdIsNotAndAddress_Id(id, customerDTO.getAddress_id())) {
-            return new Result("Bu manzilda ta'minotchi yashaydi", false);
-        }
-
         customer.setAddress(address);
         customer.setFirstName(customerDTO.getFirstName());
         customer.setLastName(customerDTO.getLastName());
